@@ -1,6 +1,8 @@
 # ask-my-docs
 
-A small, **hand-rolled Retrieval-Augmented Generation (RAG) API** for practicing TypeScript and Node.js. It ingests a handful of markdown documents and answers natural-language questions grounded in them.
+Note: I'm a Python developer learning TypeScript, Node.js, and RAG pipeline with this simple project.
+
+This is a small, **hand-rolled Retrieval-Augmented Generation (RAG) API** for practicing TypeScript and Node.js. It ingests a handful of markdown documents and answers natural-language questions grounded in them.
 
 The point isn't to be production-grade — it's to implement **every stage of a RAG pipeline by hand** (chunk → embed → store → retrieve → generate) so each stage is visible and explainable. No RAG framework, no vector database, no cloud APIs — the only external piece is a **local embedding model served by [Ollama](https://ollama.com)**, so embeddings are real and semantic while everything still runs on your own machine with no keys.
 
@@ -15,9 +17,9 @@ The point isn't to be production-grade — it's to implement **every stage of a 
 | Concern    | Choice                                                                                |
 | ---------- | ------------------------------------------------------------------------------------- |
 | Runtime    | **Node.js 24 (LTS)** — runs `.ts` files natively (type stripping), built-in `--watch` |
-| Language   | **TypeScript 6** (`strict: true`)                                                       |
-| Pkg Mngr   | **Bun**                                                                               |
-| HTTP       | **Express 5.x**                                                                           |
+| Language   | **TypeScript 6** (`strict: true`)                                                     |
+| Pkg Mngr   | **Bun**  (only to replace npm but still use node as runtime for learning)             |
+| HTTP       | **Express 5.x**                                                                       |
 | Validation | **Zod** (runtime validation at the request boundary, types derived via `z.infer`)     |
 | Tests      | **`node:test`** + **`node:assert`** (built-in runner)                                 |
 | Storage    | **In-memory** (plain arrays / `Map`) — no database                                    |
