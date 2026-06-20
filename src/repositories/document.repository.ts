@@ -1,3 +1,5 @@
+import type { Title, Document } from '../domain/types.ts';
+
 interface DocumentRepository {
     getDocument(id: number): Promise<Document | undefined>;
     getAllTitles(): Promise<Title[]>;
@@ -5,13 +7,6 @@ interface DocumentRepository {
     updateDocument(id: number, title?: string, content?: string): Promise<Document | undefined>;
     deleteDocument(id: number): Promise<number | undefined>;
 }
-
-type Title = {
-    id: number,
-    title: string,
-}
-
-type Document = Title & {content: string}
 
 class InMemoryDocumentRepository implements DocumentRepository {
     private currDocIdx = 0;

@@ -120,7 +120,7 @@ interface Embedder {
 interface VectorRepository {
   add(chunk: EmbeddedChunk): Promise<void>;
   all(): Promise<EmbeddedChunk[]>;
-  deleteByDocId(docId: string): Promise<void>;
+  deleteByDocId(docId: number): Promise<void>;
 }
 
 interface Generator {
