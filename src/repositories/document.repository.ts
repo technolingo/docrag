@@ -1,9 +1,9 @@
 interface DocumentRepository {
-    getDocument(id: number): Document | undefined;
-    getAllTitles(): Title[];
-    createDocument(title: string, content: string): Document;
-    updateDocument(id: number, title?: string, content?: string): Document | undefined;
-    deleteDocument(id: number): number | undefined;
+    getDocument(id: number): Promise<Document | undefined>;
+    getAllTitles(): Promise<Title[]>;
+    createDocument(title: string, content: string): Promise<Document>;
+    updateDocument(id: number, title?: string, content?: string): Promise<Document | undefined>;
+    deleteDocument(id: number): Promise<number | undefined>;
 }
 
 type Title = {
@@ -17,19 +17,26 @@ class InMemoryDocumentRepository implements DocumentRepository {
     private currDocIdx = 0;
     private documents = new Map<number, Document>;
 
-    getDocument(id: number): Document | undefined {
+    async getDocument(id: number): Promise<Document | undefined> {
         return this.documents.get(id);
     }
 
-    getAllTitles(): Title[] {
+    async getAllTitles(): Promise<Title[]> {
         return Array.from(this.documents.values(), (doc) => ({
             id: doc.id,
             title: doc.title,
         }))
     }
 
-    updateDocument(id: number, title?: string, content?: string): Document | undefined {
-        const orig = this.getDocument(id);
+    async createDocument(title: string, content: string): Promise<Document> {
+        const id = ++this.currDocIdx;
+        const doc: Document = {id, title, content}  // shorthand when keys & values have the same name
+        this.documents.set(id, doc);
+        return doc;
+    }
+
+    async updateDocument(id: number, title?: string, content?: string): Promise<Document | undefined> {
+        const orig = await this.getDocument(id);
         if (!orig) {
             return undefined;
         }
@@ -44,15 +51,8 @@ class InMemoryDocumentRepository implements DocumentRepository {
         return updated;
     }
 
-    createDocument(title: string, content: string): Document {
-        const id = ++this.currDocIdx;
-        const doc: Document = {id, title, content}  // shorthand when keys & values have the same name
-        this.documents.set(id, doc);
-        return doc;
-    }
-
-    deleteDocument(id: number): number | undefined {
-        const orig = this.getDocument(id);
+    async deleteDocument(id: number): Promise<number | undefined> {
+        const orig = await this.getDocument(id);
         if (!orig) {
             return undefined;
         }
