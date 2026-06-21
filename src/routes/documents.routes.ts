@@ -1,10 +1,13 @@
-import { Router } from 'express';
+import { Router, type RequestHandler } from 'express';
 import { validateBody } from '../middleware/validate.ts';
 import { createDocumentSchema } from './documents.schema.ts';
-import { createDocument } from '../controllers/documents.controller.ts';
 
-const router = Router();
+type DocumentsController = {
+    createDocument: RequestHandler;  // ending in ; by convention since it's an object type, not object
+}
 
-router.post('/', validateBody(createDocumentSchema), createDocument);
-
-export default router;
+export function makeDocumentsRouter(controller: DocumentsController) {
+    const router = Router();
+    router.post('/', validateBody(createDocumentSchema), controller.createDocument);
+    return router;
+}

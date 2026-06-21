@@ -1,7 +1,7 @@
-interface Generator {
+export interface Generator {
 
 }
 
-class MockGenerator implements Generator {
+export class MockGenerator implements Generator {
     
 }

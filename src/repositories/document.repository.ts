@@ -1,6 +1,6 @@
 import type { Title, Document } from '../domain/types.ts';
 
-interface DocumentRepository {
+export interface DocumentRepository {
     getDocument(id: number): Promise<Document | undefined>;
     getAllTitles(): Promise<Title[]>;
     createDocument(title: string, content: string): Promise<Document>;
@@ -8,7 +8,7 @@ interface DocumentRepository {
     deleteDocument(id: number): Promise<number | undefined>;
 }
 
-class InMemoryDocumentRepository implements DocumentRepository {
+export class InMemoryDocumentRepository implements DocumentRepository {
     private currDocIdx = 0;
     private documents = new Map<number, Document>;
 

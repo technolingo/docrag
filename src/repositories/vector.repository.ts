@@ -1,7 +1,7 @@
-interface VectorRepository {
+export interface VectorRepository {
 
 }
 
-class InMemoryVectorRepository implements VectorRepository {
+export class InMemoryVectorRepository implements VectorRepository {
     
 }

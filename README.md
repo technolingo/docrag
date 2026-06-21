@@ -76,9 +76,10 @@ Errors are thrown as typed `AppError` subclasses (`NotFoundError`, `ValidationEr
 
 ```
 src/
-  server.ts                  # bootstrap: wire dependencies, start listening
+  server.ts                  # start listening
   app.ts                     # Express app + global middleware
   config.ts                  # constants (chunk size, overlap, top-k, Ollama URL + model)
+  composition-root.ts        # compose & inject dependencies, only place allowed to use `new`
   domain/
     types.ts                 # Document, Chunk, EmbeddedChunk, AskResult
     errors.ts                # AppError hierarchy
