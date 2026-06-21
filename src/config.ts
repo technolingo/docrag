@@ -2,8 +2,8 @@ export const config = {
     port: 3000,
     chunk: { size: 800, overlap: 100 },
     ollama: {
-      baseUrl: 'http://localhost:11434',
-      model: 'nomic-embed-text',
+        baseUrl: "http://localhost:11434",
+        model: "nomic-embed-text",
     },
     retrieval: { topK: 4 },
 } as const;

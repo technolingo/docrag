@@ -1,7 +1,3 @@
-export interface Chunker {
+export type Chunker = {};
 
-}
-
-export class SlidingWindowChunker implements Chunker {
-    
-}
+export class SlidingWindowChunker implements Chunker {}

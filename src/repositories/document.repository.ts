@@ -1,16 +1,20 @@
-import type { Title, Document } from '../domain/types.ts';
+import type { Document, Title } from "../domain/types.ts";
 
 export interface DocumentRepository {
     getDocument(id: number): Promise<Document | undefined>;
     getAllTitles(): Promise<Title[]>;
     createDocument(title: string, content: string): Promise<Document>;
-    updateDocument(id: number, title?: string, content?: string): Promise<Document | undefined>;
+    updateDocument(
+        id: number,
+        title?: string,
+        content?: string,
+    ): Promise<Document | undefined>;
     deleteDocument(id: number): Promise<number | undefined>;
 }
 
 export class InMemoryDocumentRepository implements DocumentRepository {
     private currDocIdx = 0;
-    private documents = new Map<number, Document>;
+    private documents = new Map<number, Document>();
 
     async getDocument(id: number): Promise<Document | undefined> {
         return this.documents.get(id);
@@ -20,17 +24,21 @@ export class InMemoryDocumentRepository implements DocumentRepository {
         return Array.from(this.documents.values(), (doc) => ({
             id: doc.id,
             title: doc.title,
-        }))
+        }));
     }
 
     async createDocument(title: string, content: string): Promise<Document> {
         const id = ++this.currDocIdx;
-        const doc: Document = {id, title, content}  // shorthand when keys & values have the same name
+        const doc: Document = { id, title, content }; // shorthand when keys & values have the same name
         this.documents.set(id, doc);
         return doc;
     }
 
-    async updateDocument(id: number, title?: string, content?: string): Promise<Document | undefined> {
+    async updateDocument(
+        id: number,
+        title?: string,
+        content?: string,
+    ): Promise<Document | undefined> {
         const orig = await this.getDocument(id);
         if (!orig) {
             return undefined;
@@ -40,7 +48,7 @@ export class InMemoryDocumentRepository implements DocumentRepository {
             ...orig,
             title: title ?? orig.title,
             content: content ?? orig.content,
-        }
+        };
 
         this.documents.set(id, updated);
         return updated;

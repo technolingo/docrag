@@ -6,6 +6,7 @@ node_modules
 .DS_Store
 .vscode
 .cursor
+biome.json
 CLAUDE.md
 AGENTS.md
 bun.lock

@@ -1,7 +1,3 @@
-export interface Embedder {
+export type Embedder = {};
 
-}
-
-export class OllamaEmbedder implements Embedder {
-    
-}
+export class OllamaEmbedder implements Embedder {}

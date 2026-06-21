@@ -1,7 +1,3 @@
-export interface VectorRepository {
+export type VectorRepository = {};
 
-}
-
-export class InMemoryVectorRepository implements VectorRepository {
-    
-}
+export class InMemoryVectorRepository implements VectorRepository {}

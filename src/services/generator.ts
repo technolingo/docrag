@@ -1,7 +1,3 @@
-export interface Generator {
+export type Generator = {};
 
-}
-
-export class MockGenerator implements Generator {
-    
-}
+export class MockGenerator implements Generator {}
