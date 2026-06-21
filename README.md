@@ -13,7 +13,7 @@ The point isn't to be production-grade — it's to implement **every stage of a 
 
 ## Tech stack
 
-<prev>
+```
 | Concern    | Choice                                                                                |
 | ---------- | ------------------------------------------------------------------------------------- |
 | Runtime    | **Node.js 24 (LTS)** — runs `.ts` files natively (type stripping), built-in `--watch` |
@@ -24,7 +24,7 @@ The point isn't to be production-grade — it's to implement **every stage of a 
 | Tests      | **`node:test`** + **`node:assert`** (built-in runner)                                 |
 | Storage    | **In-memory** (plain arrays / `Map`) — no database                                    |
 | Embeddings | **Ollama** running `nomic-embed-text` locally (called over HTTP via `fetch`)          |
-</prev>
+```
 
 **Deliberately not used:** any RAG framework (LangChain, LlamaIndex), any vector database, any cloud AI provider. The only dependency beyond the libraries above is a local Ollama instance — no API keys, no data leaves the machine.
 
