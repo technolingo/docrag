@@ -14,10 +14,14 @@ export function buildApp() {
     // adapters: swappable concretes
     const documentRepository = new InMemoryDocumentRepository();
     const vectorRepository = new InMemoryVectorRepository();
-    const chunker = new SlidingWindowChunker();
-    const embedder = new OllamaEmbedder();
-    // const chunker = new SlidingWindowChunker(config.chunk.size, config.chunk.overlap);
-    // const embedder = new OllamaEmbedder(config.ollama.baseUrl, config.ollama.model);
+    const chunker = new SlidingWindowChunker(
+        config.chunk.size,
+        config.chunk.overlap,
+    );
+    const embedder = new OllamaEmbedder(
+        config.ollama.baseUrl,
+        config.ollama.model,
+    );
 
     // application service: wired from the abstractions above
     const ingestService = new IngestService(

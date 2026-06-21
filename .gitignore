@@ -110,3 +110,6 @@ typings/
 
 # macOS
 .DS_Store
+
+# developement
+rawdata

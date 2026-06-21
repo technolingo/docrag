@@ -2,8 +2,8 @@ import type { DocumentRepository } from "../repositories/document.repository.ts"
 import type { VectorRepository } from "../repositories/vector.repository.ts";
 import type { Chunker } from "./chunker.ts";
 import type { Embedder } from "./embedder.ts";
-// import & depend only on interfaces
 
+// import & depend only on interfaces
 export class IngestService {
     private readonly docs: DocumentRepository;
     private readonly vectors: VectorRepository;
@@ -22,7 +22,14 @@ export class IngestService {
     }
 
     async ingest(title: string, content: string) {
-        // TODO: chunk → embed → store
-        return { id: 1, title, content, chunkCount: 0 };
+        const doc = await this.docs.createDocument(title, content);
+        const chunks = this.chunker.chunk(doc.id, content);
+
+        for (const chunk of chunks) {
+            const embedding = await this.embedder.embed(chunk.text);
+            await this.vectors.addOne({ ...chunk, embedding });
+        }
+
+        return { id: doc.id, title: doc.title, chunkCount: chunks.length };
     }
 }
