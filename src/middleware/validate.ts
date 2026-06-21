@@ -7,7 +7,6 @@ export function validateBody(schema: ZodType): RequestHandler {
         const result = schema.safeParse(req.body);
         if (!result.success) {
             const message = result.error.issues.map((i) => i.message).join('; ');
-            console.log('throwing validation error');
             next(new ValidationError(message));  // hand off to the error handler
             return;
         }
