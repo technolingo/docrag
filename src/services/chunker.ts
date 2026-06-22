@@ -1,8 +1,8 @@
 import type { Chunk } from "../domain/types.ts";
 
-export type Chunker = {
+export interface Chunker {
     chunk(docId: number, text: string): Chunk[];
-};
+}
 
 export class SlidingWindowChunker implements Chunker {
     // dependency injection (instead of importing config)

@@ -1,6 +1,6 @@
-export type Embedder = {
+export interface Embedder {
     embed(text: string): Promise<number[]>;
-};
+}
 
 export class OllamaEmbedder implements Embedder {
     private readonly baseUrl: string;

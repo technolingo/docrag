@@ -1,11 +1,18 @@
 export const config = {
     port: 3000,
     chunk: { size: 800, overlap: 100 },
-    ollama: {
+    embedder: {
         baseUrl: "http://localhost:11434",
         model: "nomic-embed-text",
     },
-    retrieval: { topK: 4 },
+    retriever: {
+        topK: 4,
+    },
+    generator: {
+        baseUrl: "http://localhost:11434",
+        model: "qwen3.6:35b",
+        temperature: 0, // deterministic, faithful to context
+    },
 } as const;
 
 // `const` at the beginning tells JavaScript to never rebind this variable to a different value,
