@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type { AskInput } from "../routes/ask.schema.ts";
+import type { AskInput } from "../schemas/ask.schema.ts";
 import type { AskService } from "../services/ask.service.ts";
 
 export function makeAskController(askService: AskService) {

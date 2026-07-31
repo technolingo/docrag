@@ -11,11 +11,16 @@ export class OllamaEmbedder implements Embedder {
     }
 
     async embed(text: string): Promise<number[]> {
-        const res = await fetch(`${this.baseUrl}/api/embed`, {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({ model: this.model, input: text }),
-        });
+        let res: Response;
+        try {
+            res = await fetch(`${this.baseUrl}/api/embed`, {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ model: this.model, input: text }),
+            });
+        } catch (err) {
+            throw new Error(`Cannot reach Ollama at ${this.baseUrl}`, { cause: err });
+        }
         if (!res.ok) throw new Error(`Ollama embed failed: ${res.status}`);
 
         const data = (await res.json()) as { embeddings: number[][] };

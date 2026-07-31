@@ -11,7 +11,8 @@
     "formatter": {
         "enabled": true,
         "indentStyle": "space",
-        "indentWidth": 4
+        "indentWidth": 4,
+        "lineWidth": 120
     },
     "linter": {
         "enabled": true,
@@ -21,11 +22,29 @@
                 "noExplicitAny": "warn"
             },
             "correctness": {
-                "noUnusedVariables": "error"
+                "noUnusedVariables": {
+                    "level": "warn",
+                    "fix": "none"
+                },
+                "noUnusedFunctionParameters": {
+                    "level": "warn",
+                    "fix": "none"
+                },
+                "noUnusedPrivateClassMembers": {
+                    "level": "warn",
+                    "fix": "none"
+                }
             },
             "style": {
-                "useConst": "error",
-                "useImportType": "error"
+                "useConst": {
+                    "level": "warn",
+                    "fix": "none"
+                },
+                "useImportType": "error",
+                "useNamingConvention": {
+                    "level": "warn",
+                    "fix": "none"
+                }
             }
         }
     },

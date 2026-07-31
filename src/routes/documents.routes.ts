@@ -1,6 +1,6 @@
 import { type RequestHandler, Router } from "express";
 import { validateBody } from "../middleware/validate.ts";
-import { createDocumentSchema } from "./documents.schema.ts";
+import { createDocumentSchema } from "../schemas/documents.schema.ts";
 
 type DocumentsController = {
     createDocument: RequestHandler; // ending in ; by convention since it's an object type, not object
@@ -8,10 +8,6 @@ type DocumentsController = {
 
 export function makeDocumentsRouter(controller: DocumentsController) {
     const router = Router();
-    router.post(
-        "/",
-        validateBody(createDocumentSchema),
-        controller.createDocument,
-    );
+    router.post("/", validateBody(createDocumentSchema), controller.createDocument);
     return router;
 }

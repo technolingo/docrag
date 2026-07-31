@@ -74,6 +74,10 @@ Errors are thrown as typed `AppError` subclasses (`NotFoundError`, `ValidationEr
 
 ### Project structure
 
+Notes on project structure
+- **Domain Entities** are types passed around internally, such as repository return types, which evolve faster and have more details; whereas **Contract Schemas** are data types for interfaces like API requests, which evolve slower and must consider input validation and backward compatibility.  These two should NOT be confused or interdependent.
+- This structure separates files by kind instead of feature/function, which is now a more old-fashioned way.  A more modern structure would organise by features and not kind, thus achieving more loose-coupling and change collocation.
+
 ```
 src/
   server.ts                  # start listening
@@ -81,8 +85,11 @@ src/
   config.ts                  # constants (chunk size, overlap, top-k, Ollama URL + model)
   composition-root.ts        # compose & inject dependencies, only place allowed to use `new`
   domain/
-    types.ts                 # Document, Chunk, EmbeddedChunk, AskResult
+    types.ts                 # Domain Entities: Document, Chunk, EmbeddedChunk, AskResult
     errors.ts                # AppError hierarchy
+  schemas/                   # Contract Schemas: request payloads
+    documents.schema.ts
+    ask.schema.ts
   routes/
     documents.routes.ts
     ask.routes.ts

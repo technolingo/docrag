@@ -1,3 +1,4 @@
+import { inspect } from "node:util";
 import type { ErrorRequestHandler } from "express";
 import { AppError } from "../domain/errors.ts";
 
@@ -9,14 +10,10 @@ type HttpishError = {
 };
 
 function isHttpError(err: unknown): err is HttpishError {
-    return (
-        typeof err === "object" &&
-        err !== null &&
-        ("status" in err || "statusCode" in err)
-    );
+    return typeof err === "object" && err !== null && ("status" in err || "statusCode" in err);
 }
 
-export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     if (err instanceof AppError) {
         res.status(err.statusCode).json({
             error: err.name,
@@ -34,6 +31,6 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         return;
     }
 
-    console.error(err); // unexpected error
+    console.error(inspect(err, { depth: null, colors: true })); // unexpected error
     res.status(500).json({ error: "InternalServerError" }); // don't leak 5xx details
 };

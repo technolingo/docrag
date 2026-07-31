@@ -1,6 +1,6 @@
 import { type RequestHandler, Router } from "express";
 import { validateBody } from "../middleware/validate.ts";
-import { askSchema } from "./ask.schema.ts";
+import { askSchema } from "../schemas/ask.schema.ts";
 
 type AskController = {
     answerQuestion: RequestHandler;
