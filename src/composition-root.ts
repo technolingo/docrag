@@ -15,18 +15,17 @@ import { OllamaGenerator } from "./services/generator.ts";
 import { IngestService } from "./services/ingest.service.ts";
 import { CosineRetriever } from "./services/retriever.ts";
 
+// export async function buildApp() {
 export function buildApp() {
+    // database
+    // const { client, db } = await connectMongo(config.mongo.uri, config.mongo.dbName);
+
     // adapters: swappable concretes
+    // const documentRepository = new MongoDocumentRepository(db.collection("documents"));  // either pass in `db` or collection
     const documentRepository = new InMemoryDocumentRepository();
     const vectorRepository = new InMemoryVectorRepository();
-    const chunker = new SlidingWindowChunker(
-        config.chunk.size,
-        config.chunk.overlap,
-    );
-    const embedder = new OllamaEmbedder(
-        config.embedder.baseUrl,
-        config.embedder.model,
-    );
+    const chunker = new SlidingWindowChunker(config.chunk.size, config.chunk.overlap);
+    const embedder = new OllamaEmbedder(config.embedder.baseUrl, config.embedder.model);
     const retriever = new CosineRetriever(config.retriever.topK);
     const generator = new OllamaGenerator(
         config.generator.baseUrl,
@@ -35,18 +34,8 @@ export function buildApp() {
     );
 
     // application service: wired from the abstractions above
-    const ingestService = new IngestService(
-        documentRepository,
-        vectorRepository,
-        chunker,
-        embedder,
-    );
-    const askService = new AskService(
-        vectorRepository,
-        embedder,
-        retriever,
-        generator,
-    );
+    const ingestService = new IngestService(documentRepository, vectorRepository, chunker, embedder);
+    const askService = new AskService(vectorRepository, embedder, retriever, generator);
 
     // web layer: closures over the service
     const documentsController = makeDocumentsController(ingestService);
@@ -54,5 +43,7 @@ export function buildApp() {
     const askController = makeAskController(askService);
     const askRouter = makeAskRouter(askController);
 
-    return createApp({ documentsRouter, askRouter });
+    const app = createApp({ documentsRouter, askRouter });
+    // return { app, client };   // expose the mongoDB client for shutdown
+    return app;
 }
