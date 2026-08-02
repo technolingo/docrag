@@ -76,7 +76,7 @@ Errors are thrown as typed `AppError` subclasses (`NotFoundError`, `ValidationEr
 
 Notes on project structure
 - **Domain Entities** are types passed around internally, such as repository return types, which evolve faster and have more details; whereas **Contract Schemas** are data types for interfaces like API requests, which evolve slower and must consider input validation and backward compatibility.  These two should NOT be confused or interdependent.
-- This structure separates files by kind instead of feature/function, which is now a more old-fashioned way.  A more modern structure would organise by features and not kind, thus achieving more loose-coupling and change collocation.
+- This structure separates files by kind instead of feature/function, which is now a more old-fashioned way.  A more modern structure would **organise by features and not kind** (See: [ALTSTRUCTURE.md](ALTSTRUCTURE.md)), thus achieving more loose-coupling and change collocation.
 
 ```
 src/
