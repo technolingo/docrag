@@ -1,15 +1,8 @@
 # ask-my-docs
 
-Note: I'm a Python developer learning TypeScript, Node.js, and RAG pipeline with this simple project.
-
 This is a small, **hand-rolled Retrieval-Augmented Generation (RAG) API** for practicing TypeScript and Node.js. It ingests a handful of markdown documents and answers natural-language questions grounded in them.
 
 The point isn't to be production-grade — it's to implement **every stage of a RAG pipeline by hand** (chunk → embed → store → retrieve → generate) so each stage is visible and explainable. No RAG framework, no vector database, no cloud APIs — the only external piece is a **local embedding model served by [Ollama](https://ollama.com)**, so embeddings are real and semantic while everything still runs on your own machine with no keys.
-
-## Purpose
-
-- Learn hands-on **TypeScript + Node.js** fundamentals: strict types, ESM, async patterns, layered architecture, error handling, the built-in test runner.
-- Build a complete RAG flow with **zero magic** — nothing hidden behind LangChain/LlamaIndex or a managed vector store. If you can explain this codebase, you can explain RAG in an interview.
 
 ## Tech stack
 
